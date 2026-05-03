@@ -31,6 +31,8 @@ class _ConverterPageState extends State<ConverterPage> {
   final CurrencyController controller =
   CurrencyController(CurrencyService());
 
+  final List<String> currencies = <String>["USD", "EUR"];
+
   String currency = "USD";
 
   @override
@@ -42,7 +44,7 @@ class _ConverterPageState extends State<ConverterPage> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          children: [
+          children: <Widget>[
             TextField(
               controller: controllerText,
               keyboardType: TextInputType.number,
@@ -51,16 +53,18 @@ class _ConverterPageState extends State<ConverterPage> {
                 border: OutlineInputBorder(),
               ),
             ),
+
             const SizedBox(height: 16),
 
             DropdownButton<String>(
               value: currency,
               isExpanded: true,
-              items: ["USD", "EUR"]
-                  .map((String e) => DropdownMenuItem<String>(
-                value: e,
-                child: Text(e),
-              ))
+              items: currencies
+                  .map<DropdownMenuItem<String>>((String e) => DropdownMenuItem<String>(
+                    value: e,
+                    child: Text(e),
+                )
+              )
                   .toList(),
               onChanged: (String? value) {
                 setState(() {
@@ -88,7 +92,9 @@ class _ConverterPageState extends State<ConverterPage> {
             const SizedBox(height: 20),
 
             if (controller.isLoading)
-              const Center(child: CircularProgressIndicator()),
+              const Center(
+                child: CircularProgressIndicator(),
+              ),
 
             const SizedBox(height: 20),
 
