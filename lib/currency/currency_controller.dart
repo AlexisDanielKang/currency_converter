@@ -1,5 +1,7 @@
+import 'currency_service.dart';
+
 class CurrencyController {
-  final service;
+  final CurrencyService service;
 
   CurrencyController(this.service);
 
@@ -10,9 +12,8 @@ class CurrencyController {
     isLoading = true;
 
     try {
-      final value = double.parse(input);
-
-      final converted = await service.convert(value, currency);
+      final double value = double.parse(input);
+      final double converted = await service.convert(value, currency);
 
       result = converted.toStringAsFixed(2);
     } catch (e) {

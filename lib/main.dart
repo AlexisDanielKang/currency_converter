@@ -3,13 +3,15 @@ import 'currency/currency_service.dart';
 import 'currency/currency_controller.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: ConverterPage(),
       debugShowCheckedModeBanner: false,
     );
@@ -17,8 +19,10 @@ class MyApp extends StatelessWidget {
 }
 
 class ConverterPage extends StatefulWidget {
+  const ConverterPage({super.key});
+
   @override
-  _ConverterPageState createState() => _ConverterPageState();
+  State<ConverterPage> createState() => _ConverterPageState();
 }
 
 class _ConverterPageState extends State<ConverterPage> {
@@ -33,7 +37,7 @@ class _ConverterPageState extends State<ConverterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Currency converter"),
+        title: const Text("Currency converter"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -42,34 +46,35 @@ class _ConverterPageState extends State<ConverterPage> {
             TextField(
               controller: controllerText,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Value in BRL",
                 border: OutlineInputBorder(),
               ),
             ),
-
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             DropdownButton<String>(
               value: currency,
               isExpanded: true,
               items: ["USD", "EUR"]
-                  .map((e) => DropdownMenuItem(
+                  .map((String e) => DropdownMenuItem<String>(
                 value: e,
                 child: Text(e),
               ))
                   .toList(),
-              onChanged: (value) {
+              onChanged: (String? value) {
                 setState(() {
                   currency = value!;
                 });
               },
             ),
 
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             ElevatedButton(
               onPressed: () async {
+                setState(() {}); // mostra loading
+
                 await controller.convert(
                   controllerText.text,
                   currency,
@@ -77,19 +82,19 @@ class _ConverterPageState extends State<ConverterPage> {
 
                 setState(() {});
               },
-              child: Text("Convert"),
+              child: const Text("Convert"),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             if (controller.isLoading)
-              CircularProgressIndicator(),
+              const Center(child: CircularProgressIndicator()),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             Text(
               "Result: ${controller.result}",
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ],
         ),

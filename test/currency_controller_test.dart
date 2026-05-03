@@ -3,11 +3,10 @@ import 'package:convert_money/currency/currency_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-
   group("CurrencyController", () {
-
     test("Conversion updates result", () async {
-      final controller = CurrencyController(CurrencyService());
+      final CurrencyController controller =
+      CurrencyController(CurrencyService());
 
       await controller.convert("10", "USD");
 
@@ -15,7 +14,8 @@ void main() {
     });
 
     test("Invalid input returns an error.", () async {
-      final controller = CurrencyController(CurrencyService());
+      final CurrencyController controller =
+      CurrencyController(CurrencyService());
 
       await controller.convert("abc", "USD");
 
@@ -23,9 +23,10 @@ void main() {
     });
 
     test("Loading status works", () async {
-      final controller = CurrencyController(CurrencyService());
+      final CurrencyController controller =
+      CurrencyController(CurrencyService());
 
-      final future = controller.convert("10", "USD");
+      final Future<void> future = controller.convert("10", "USD");
 
       expect(controller.isLoading, true);
 
@@ -33,6 +34,5 @@ void main() {
 
       expect(controller.isLoading, false);
     });
-
   });
 }
